@@ -12,8 +12,8 @@ Denisovan samples: https://figshare.com/ndownloader/files/30768775
 ##Step1
 
 Создание окружения, установка туллов.
-`conda create -n phylo_hw
+```conda create -n phylo_hw
   conda activate phylo_hw
   conda install -c bioconda mafft
   conda install -c bioconda iqtree2
-  conda install -c bioconda fasttree`
+  conda install -c bioconda fasttree```
