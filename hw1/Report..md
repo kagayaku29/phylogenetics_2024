@@ -9,7 +9,7 @@ Neanderthal samples: https://figshare.com/ndownloader/files/30768766
 Denisovan samples: https://figshare.com/ndownloader/files/30768775
 
 
-##Step1
+## Step1
 
 Создание окружения, установка туллов.
 ```conda create -n phylo_hw
@@ -17,3 +17,12 @@ Denisovan samples: https://figshare.com/ndownloader/files/30768775
   conda install -c bioconda mafft
   conda install -c bioconda iqtree2
   conda install -c bioconda fasttree```
+
+Запуск из текущей папки, объединенние всех скачанных файлов с расширением .fasta
+`cat *.fasta > all_sequences.fasta`
+
+Используем MAFFT для множественного выравнивания последовательносте и записываем результат в файл aligned_sequences.fasta.
+`mafft --auto all_sequences.fasta > aligned_sequences.fasta `
+
+Запуск fasttree для получения файла .newick
+`FastTree -gtr -nt -boot 1000 aligned_sequences.fasta > tree_with_bootstrap_1.newick`
