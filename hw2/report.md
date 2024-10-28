@@ -85,6 +85,30 @@ sumt
 ```
 
 ## Визуализация iTol:
-![Филогенетическое дерево](https://raw.githubusercontent.com/kagayaku29/phylogenetics_2024/04124eaa0792633d3fc1ff472cb9e7b065b99c36/hw2/iTol1.svg)
+![Филогенетическое дерево](https://raw.githubusercontent.com/kagayaku29/phylogenetics_2024/1f312d906b7c76e018b301e977cdbf681ed45a18/hw2/iTol2.svg)
 
+## Сравнение деревьев с использованием Robinson-Foulds Distance
+Для сравнения деревьев использовали DendroPy, который позволяет рассчитать расстояние Robinson-Foulds:
 
+```python
+# Установка DendroPy
+!pip install dendropy
+
+# Импорт библиотек
+import dendropy
+from dendropy.calculate import treecompare
+
+# Загрузка деревьев из файлов
+tree1_path = "tree1.tre"
+tree2_path = "tree2.newick"
+tree1 = dendropy.Tree.get(path=tree1_path, schema="newick")
+tree2 = dendropy.Tree.get(path=tree2_path, schema="newick")
+
+# Вычисление RF distance
+rf_distance = treecompare.symmetric_difference(tree1, tree2)
+print("Robinson-Foulds Distance:", rf_distance)
+```
+Значение RF distance получилось 62, что свидетельствует о значительных различиях в структуре двух деревьев.
+
+## Заключение
+В результате анализа мы построили филогенетические деревья для гена RAG2 и рассчитали степень различий между деревьями с помощью Robinson-Foulds distance. Значительное значение RF distance указывает на то, что деревья имеют различную топологию, что может отражать различия в эволюционной истории у исследуемых видов.
