@@ -6,6 +6,7 @@
 ## Данные
 Исходный набор данных состоит из последовательностей гена RAG2 у различных видов. Данные включают последовательности с идентификаторами:
 
+```bash
 AF369089.1Trionyx sinensis RAG2 (RAG2) gene, partial cds
 AF369088.1Typhlonectes natans RAG2 (RAG2) gene, partial cds
 AF369087.1Latimeria menadoensis RAG2 (RAG2) gene, partial cds
@@ -24,7 +25,7 @@ AF369075.1Polyodon spathula RAG2 (RAG2) gene, partial cds
 AF369074.1Acipenser sp. IMCB-2001 RAG2 (RAG2) gene, partial cds
 AF369073.1Acipenser sp. IMCB-2001 RAG2 (RAG2) gene, partial cds
 AF369072.1Polypterus sp. IMCB-2001 RAG2 (RAG2) gene, partial cds
-
+```
 
 ## Подготовка среды
 Для выполнения анализа мы создали виртуальную среду и установили необходимые инструменты:
@@ -60,4 +61,30 @@ FastTree -gtr -boot 1000 -quote -nt rag2_align.fasta > rag2_tree.newick
 ```
 
 ## Визуализация iTol:
+![Филогенетическое дерево](https://raw.githubusercontent.com/kagayaku29/phylogenetics_2024/04124eaa0792633d3fc1ff472cb9e7b065b99c36/hw2/iTol1.svg)
+
+## Форматирование данных для MrBayes и выбор аутгруппы
+Для байесовского анализа дерева использовали MrBayes, преобразовав выровненные данные в формат Nexus:
+
+```bash
+seqmagick convert --output-format nexus --alphabet dna rag2_align.fasta rag2_align.nex
+```
+
+Выбрала Torpedo californica и Triakis sp. в качестве аутгруппы, исходя из аналогии со статьей.
+
+## Байесовский анализ с MrBayes
+Для запуска MrBayes использовали следующие параметры:
+
+```bash
+execute formatted_rag2_align.nex
+outgroup AF369084.1_Torpedo_californica AF369083.1_Triakis_sp
+mcmcp ngen=1000000 nruns=2 nchains=2 samplefreq=200 burninfrac=0.2
+mcmc
+sump
+sumt
+```
+
+## Визуализация iTol:
+![Филогенетическое дерево](https://raw.githubusercontent.com/kagayaku29/phylogenetics_2024/04124eaa0792633d3fc1ff472cb9e7b065b99c36/hw2/iTol1.svg)
+
 
